@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+
+<body>
+
+
+    <aside id="left-panel" class="left-panel" th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+    </aside>
+    <div id="right-panel" class="right-panel">
+        <header id="header" class="header" th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+        </header>
+
+
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>SERVICIOS ROCA</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="content">
+    
+        </div>
+        <div class="clearfix"></div>
+
+        <footer th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+        </footer>
+    </div>
+    <!-- /#right-panel -->
+
+    <div th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+    </div>
+</body>
+
+</html>

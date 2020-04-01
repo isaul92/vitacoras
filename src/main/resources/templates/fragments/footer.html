@@ -1,0 +1,41 @@
+
+
+
+
+<div th:fragment="piePagina" class="container-fluid d-flex">
+<div class=" up">
+    <span class="icon-up"><img th:src="@{images/arriba.png}"></span>
+</div>
+	<div class="container">
+
+
+		<div class="row mb-2">
+		
+	<div class="col-12 d-flex align-content-center text-center justify-content-around">
+		Tultepec Av. 2 de Marzo
+		<br>
+		5585491911
+		<br>
+		altecsistemas@hotmail.com
+		</div>
+		
+		
+		</div>
+
+		<div class="row">
+
+<div class="col-12 d-flex align-content-center text-center justify-content-around">
+
+
+
+
+			<p >
+				&copy; <span th:text="${#dates.year(#dates.createNow())}"></span> | Altec Sistemas .
+			</p>
+			
+			</div>
+		</div>
+	</div>
+
+
+</div>

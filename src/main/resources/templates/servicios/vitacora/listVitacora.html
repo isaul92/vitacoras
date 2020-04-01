@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>SERVICIOS ROCA</h1>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content container-fluid">
+			<!-- .content -->
+			<div class="container-fluid">
+				<div class="card">
+
+					<h4 class="card-header">
+						<strong>Listado de Categorias Servicios Roca</strong>
+						<h1 th:each="rep:${reportes}">1</h1>
+					</h4>
+
+					<h1 class="badge badge-success" th:text="${msg}"></h1>
+					<div class="card-body">
+						<a class="btn btn-primary" th:href="@{/vitacora/create}"
+							role="button"><i class="fas fa-file" aria-hidden="true"></i>
+							Nueva</a> <a class="btn btn-primary"
+							th:href="@{/vitacora/indexPaginate/0}" role="button"> Mostrar
+							todos</a>
+						<hr>
+
+						<div class="row">
+							<div class="d-flex">
+
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="text" id="buscadorLicencia" class="form-control"
+											placeholder="Buscar por Numero de Licencia"> <label
+											for="fecha" class="mt-2">Buscar por Mes</label> <input
+											type="date" name="fecha" class="form-control"
+											id="fechaBuscar" data-date="" data-date-format="DD-MM-YYYY">
+									</div>
+
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+
+										<label class="btn btn-success" id="buscar"> Buscar</label>
+
+									</div>
+
+
+								</div>
+
+							</div>
+
+
+						</div>
+						<table class="table table-hover table-responsive">
+							<thead class="thead-light">
+								<tr>
+
+									<th scope="col">Fecha.</th>
+									<th scope="col">Hora inicial.</th>
+									<th scope="col">Hora final.</th>
+									<th scope="col">Duracion.</th>
+									<th scope="col">Categoria.</th>
+									<th scope="col">Proyecto</th>
+									<th scope="col">Licencia.</th>
+									<th scope="col">Nombre de Contacto.</th>
+									<th scope="col">Contacto/Telefono.</th>
+									<th scope="col">Estatus.</th>
+									<th scope="col">Descripcion de la Actividad</th>
+									<th scope="col">Notas.</th>
+									<th scope="col">Acciones.</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="vitacora:${vitacoras}">
+									<td th:text="${#dates.format(vitacora.fecha, 'dd-MM-yyyy')}">
+										Recursos Humanos</td>
+									<td th:text="${vitacora.horaInicial}">Recursos Humanos</td>
+									<td th:text="${vitacora.horaFinal}">Recursos Humanos</td>
+
+									<td th:text="${vitacora.minDuracion}+' min'">Recursos
+										Humanos</td>
+
+									<td th:text="${vitacora.cusategoriaActiv.nombre}">Recursos
+										Humanos</td>
+									<td th:text="${vitacora.proyecto.nombre}"></td>
+									<td th:text="${vitacora.licencia}">Recursos Humanos</td>
+									<td th:text="${vitacora.contacto}">Recursos Humanos</td>
+									<td th:text="${vitacora.correoTel}">Recursos Humanos</td>
+									<td><span th:if="${vitacora.estatus=='TERMINADA'}"
+										class="badge badge-success">TERMINADA</span> <span
+										th:unless="${vitacora.estatus=='TERMINADA'}"
+										class="badge badge-danger">EN PROCESO</span></td>
+									<td th:text="${vitacora.subCat.nombre}">Recursos Humanos</td>
+									<td th:text="${vitacora.notas}">Recursos Humanos</td>
+
+
+									<td><a
+										th:href="@{/vitacora/edit/{id} (id=${vitacora.id} ) }"
+										class="btn btn-success btn-sm" role="button" title="Editar"><i
+											class="fas fa-pencil-alt" aria-hidden="true"></i></a> <a
+										th:href="@{/vitacora/delete/{id} (id=${vitacora.id} ) }"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-success btn-sm" role="button" title="Eliminar"><i
+											class="fas fa-trash" aria-hidden="true"></i></a></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+						<nav th:if="${vitacoras.totalPages > 0}"
+							aria-label="Page navigation example">
+
+
+
+							<div th:if="${licencia != null && fecha==null}"
+								th:with="paginaAdelante='/'+${vitacoras.number +1}+'/'+${licencia}">
+
+
+								<div th:if="${licencia != null}"
+									th:with="paginaAtras='/'+${vitacoras.number -1}+'/'+${licencia}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+
+							</div>
+
+
+
+							<div th:if="${licencia == null && fecha==null }"
+								th:with="paginaAdelante='/'+${vitacoras.number +1}">
+								<div th:if="${licencia == null  && fecha==null}"
+									th:with="paginaAtras='/'+${vitacoras.number -1}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+
+
+
+							<div th:if="${licencia == null  && fecha!=null }"
+								th:with="paginaAdelante='/'+${vitacoras.number +1}+'/fecha/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
+								<div th:if="${licencia == null  && fecha!=null}"
+									th:with="paginaAtras='/'+${vitacoras.number -1}+'/fecha/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+
+
+
+
+							<div th:if="${licencia != null  && fecha!=null }"
+								th:with="paginaAdelante='/'+${vitacoras.number +1}+'/'+${licencia}+'/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
+								<div th:if="${licencia != null  && fecha!=null}"
+									th:with="paginaAtras='/'+${vitacoras.number -1}+'/'+${licencia}+'/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+
+
+
+
+						</nav>
+
+					</div>
+
+
+
+					<div class="container-fluid">
+						<div class="row ">
+
+							<h4 class="bg-white rounded p-3 ml-4">Buscar reporte por
+								fecha</h4>
+						</div>
+
+						<div class="row d-flex">
+							<div class="col-2">
+								<div class="form-group">
+									<label for="fecha">Desde el Mes </label> <input type="date"
+										class="form-control" name="fecha" id="fecha1">
+								</div>
+							</div>
+							<div class="col-2   ">
+								<div class="form-group">
+									<label for="fecha">Al Mes</label> <input type="date"
+										name="fecha" class="form-control" id="fecha2">
+								</div>
+
+
+							</div>
+
+							<div class="col-1 d-flex align-content-center justify-content-between  mt-4 pt-2 ">
+								<div class="form-group mx-1 ">
+									<input type="submit" name="fecha" class="btn btn-success"
+										value="Buscar" id="buton">
+								</div>
+								<div class="form-group ">
+									<input type="submit" name="fecha" class="btn btn-success"
+										value="Descargar Reporte" id="descargarReporte">
+								</div>
+							</div>
+							
+
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+
+			<div class="container-fluid ">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+		</div>
+
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<script type="text/javascript"
+		src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript"
+		src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+	<script th:src="@{/js/vitacoras/pieChart.js}"></script>
+	<script th:src="@{/js/vitacoras/redirectVitacora.js}"></script>
+
+</body>
+</html>

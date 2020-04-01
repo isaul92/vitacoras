@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>SERVICIOS ROCA | CREAR VITACORA</h1>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="animated fadeIn">
+
+
+					<div class="row">
+						<div class="col">
+							<div class="card">
+								<div class="card-header">
+									<strong>Crear Vitacora</strong><small> </small>
+								</div>
+								<div class="card-body card-block">
+
+									<form th:action="@{/vitacora/save}" th:object="${vitacora}"
+										method="post">
+										<div class="d-flex flex-wrap">
+
+											<input type="hidden" class="form-control" id="id" name="id"
+												th:field="*{id}">
+													<input type="hidden" class="form-control" 
+												th:field="*{minDuracion}">
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Fecha de Publicación</label> <input
+														type="text" class="form-control" name="fecha" id="fecha"
+														th:field="*{fecha}" placeholder="Fecha de publicacion"
+														required="required">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Hora Inicial</label> <input
+														class="form-control" type="time" name="hora"
+														th:field="*{horaInicial}" value="11:45:00" max="24:59:59"
+														min="00:00:00"  step="1" required="required">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Hora Final</label> <input
+														class="form-control" type="time" name="hora"
+														th:field="*{horaFinal}" value="11:45:00" max="24:59:59"
+														min="00:00:00" step="1" required="required">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="categoria">Categoría</label> <select
+														th:field="*{cusategoriaActiv.id}"
+														class="form-control categoriasForm" name="categoria">
+														<option value="1" th:each="categoria : ${categorias}"
+															th:value="${categoria.id}" th:text="${categoria.nombre}">Ventas</option>
+
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="categoria">Proyecto</label> <select
+														th:field="*{proyecto.id}"
+														class="form-control categoriasForm" name="categoria">
+														<option value="1" th:each="proyecto : ${proyectos}"
+															th:value="${proyecto.id}" th:text="${proyecto.nombre}">Ventas</option>
+
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div id="subCategorias">
+													<div class="form-group">
+														<label for="categoria">Descripcion</label> <select
+															th:field="*{subCat.id}" class="form-control"
+															name="subCat">
+															<option value="1" th:each="subCat : ${subCategorias}"
+																th:value="${subCat.id}" th:text="${subCat.nombre}">Ventas</option>
+
+														</select>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Numero de Licencia</label> <input
+														type="text" class="form-control" name="licencia"
+														id="licencia" th:field="*{licencia}"
+														placeholder="Numero de Licencia" required="required">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Nombre de Contacto</label> <input
+														type="text" class="form-control" name="contacto"
+														id="contacto" th:field="*{contacto}"
+														placeholder="Nombre de Contacto" required="required">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="correoTel">Correo o Telefono</label> <input
+														type="text" class="form-control" name="correoTel"
+														id="correoTel" th:field="*{correoTel}"
+														placeholder="Ingrese numero de Telefono o Correo Electronicos"
+														required="required">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="correoTel">Notas</label>
+													<textarea type="text" class="form-control" name="notas"
+														id="notas" th:field="*{notas}"
+														placeholder="Ingrese alguna nota"></textarea>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="estatus">Estatus</label> <select
+														th:field="*{estatus}" class="form-control" name="estatus"
+														id="estatus">
+														<option value="PROCESO">PROCESO</option>
+														<option value="TERMINADA">TERMINADA</option>
+
+													</select>
+												</div>
+											</div>
+
+										</div>
+										<div class="d-flex justify-content-around">
+											<input class="btn btn-success" type="submit" value="Guardar">
+										</div>
+
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+	<script th:src="@{/js/vitacoras/searchSub.js}"></script>
+</body>
+</html>

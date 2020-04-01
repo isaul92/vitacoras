@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>SERVICIOS ROCA | CREAR CATEGORIA</h1>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content">
+			<div class="container">
+
+				<div class="animated fadeIn">
+
+
+					<div class="row">
+						<div class="col">
+							<div class="card">
+								<div class="card-header">
+									<strong>Crear Categoria</strong><small> </small>
+								</div>
+								<div class="card-body card-block">
+
+
+
+									<form th:action="@{/servicios/subCat/save}"
+										th:object="${subcategoriaroca}" method="post">
+
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="categoria">Categoría</label> <select
+													th:field="*{idCat.id}" class="form-control"
+													name="categoria">
+													<option value="1" th:each="categoria : ${categorias}"
+														th:value="${categoria.id}" th:text="${categoria.nombre}">Ventas</option>
+
+												</select>
+											</div>
+										</div>
+
+
+										<input type="hidden" class="form-control" id="id" name="id"
+											th:field="*{id}">
+										<div class="form-group">
+											<label for="company" class=" form-control-label">Nombre</label><input
+												th:field="*{nombre}" type="text" id="company"
+												placeholder="Ingresa el nombre de la categoria"
+												class="form-control">
+										</div>
+
+										<input class="btn btn-success" type="submit" value="Guardar">
+									</form>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+
+					<div class="clearfix"></div>
+
+					<footer
+						th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+					</footer>
+				</div>
+				<!-- /#right-panel -->
+
+				<div
+					th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+				</div>
+</body>
+</html>

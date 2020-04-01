@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left d-flex  align-content-center justify-content-around">
+							<div class="page-title text-center" >
+								<h1>SERVICIOS ROCA</h1>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content"></div>
+		<!-- .content -->
+		<div class="container">
+
+			<div class="animated fadeIn">
+
+
+				<div class="row">
+					<div class="col">
+						<div class="card">
+							<div class="card-header">
+								<strong>Agregar a la Vitacora</strong><small> </small>
+							</div>
+							<div class="card-body card-block">
+								<div class="form-group">
+									<label for="company" class=" form-control-label">Company</label><input
+										type="text" id="company" placeholder="Enter your company name"
+										class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="vat" class=" form-control-label">VAT</label><input
+										type="text" id="vat" placeholder="DE1234567890"
+										class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="street" class=" form-control-label">Street</label><input
+										type="text" id="street" placeholder="Enter street name"
+										class="form-control">
+								</div>
+								<div class="row form-group">
+									<div class="col-8">
+										<div class="form-group">
+											<label for="city" class=" form-control-label">City</label><input
+												type="text" id="city" placeholder="Enter your city"
+												class="form-control">
+										</div>
+									</div>
+									<div class="col-8">
+										<div class="form-group">
+											<label for="postal-code" class=" form-control-label">Postal
+												Code</label><input type="text" id="postal-code"
+												placeholder="Postal Code" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="country" class=" form-control-label">Country</label><input
+										type="text" id="country" placeholder="Country name"
+										class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+</body>
+</html>

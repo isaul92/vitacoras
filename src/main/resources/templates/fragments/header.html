@@ -1,0 +1,38 @@
+
+<nav th:fragment="menu-principal"
+	class="navbar navbar-expand-md navbar-dark fixed-top">
+	<a class="navbar-brand" th:href="@{/}">Altec Sistemas</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarsExampleDefault"
+		aria-controls="navbarsExampleDefault" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		<ul class="navbar-nav mr-auto">
+		
+		</ul>
+	
+
+		<ul class="navbar-nav ">
+			<li class="nav-item mx-2"><a class="nav-link active" th:href="@{/}">INICIO</a>
+			</li>
+			<li class="nav-item mx-2"><a class="nav-link"
+				th:href="@{/vacantes/indexPaginate}"
+				sec:authorize="hasAnyAuthority('SUPERVISOR','ADMINISTRADOR')">NOSOTROS</a></li>
+			<li class="nav-item mx-2"><a class="nav-link"
+				th:href="@{/categorias/index}"
+				sec:authorize="hasAnyAuthority('SUPERVISOR','ADMINISTRADOR')">SERVICIOS</a></li>
+
+			<li class="nav-item mx-2"><a class="nav-link"
+				th:href="@{/usuarios/index}"
+				sec:authorize="hasAnyAuthority('ADMINISTRADOR')">PRODUCTOS</a></li>
+					<li class="nav-item mx-2"><a class="nav-link"
+				th:href="@{/usuarios/index}"
+				sec:authorize="hasAnyAuthority('ADMINISTRADOR')">ACCESO</a></li>
+		</ul>
+
+
+	</div>
+</nav>
