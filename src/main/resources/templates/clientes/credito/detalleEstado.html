@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>DETALLE CREDITO</h1>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="animated fadeIn">
+
+
+					<div class="row">
+						<div class="col">
+							<div class="card">
+								<div class="card-header">
+									<strong>Detalle Orden Servicio | Credito</strong><small>
+									</small>
+								</div>
+								<div class="card-body card-block">
+
+
+									<div class="card" style="width: 30rem;">
+										<div class="card-body">
+											<h5 class="card-title"
+												th:text="${#dates.format(ordenes.fecha, 'dd-MMMM-yyyy')}"></h5>
+											<h6 class="card-subtitle mb-2 text-muted"
+												th:text="${cliente.nombre}"></h6>
+											<p class="card-text"
+												th:text="${'Saldo Actual: $'+deudaTotal}"></p>
+
+
+										</div>
+									</div>
+
+									<table class="table table-hover p-2">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">Nombre</th>
+												<th scope="col">Descripcion</th>
+												<th scope="col">Precio</th>
+												<th scope="col">Cantidad</th>
+												<th scope="col">Total.</th>
+												<th scope="col"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="orden:${ordenes.partidas}">
+												<td th:text="${orden.servProdId.nombre}"></td>
+												<td th:text="${orden.servProdId.descr}"></td>
+												<td th:text="'$'+${orden.servProdId.precio}"></td>
+												<td th:text="${orden.cantidad}"></td>
+												<td
+													th:text="'$'+${orden.cantidad * orden.servProdId.precio}">
+												</td>
+
+												<!-- 
+									<td th:text="${orden.estadosDeCuenta.id}"></td>
+									<td th:text="${orden.estadosDeCuenta.fecha}"></td>
+									<td th:text="${'$'+orden.estadosDeCuenta.deudaTotal}"></td>
+									<td th:text="${'$'+orden.estadosDeCuenta.dedudaActual}"></td>
+
+									<td><a href="# ">DETALLE</a></td>
+									<td><a
+										th:href="@{/clientes/edit/{id} (id=${orden.estadosDeCuenta.id} ) }"
+										class="btn btn-success btn-sm" role="button" title="Editar"><i
+											class="fas fa-pencil-alt" aria-hidden="true"></i></a> <a
+										th:href="@{/clientes/delete/{id} (id=${orden.estadosDeCuenta.id} ) }"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-success btn-sm" role="button" title="Eliminar"><i
+											class="fas fa-trash" aria-hidden="true"></i></a></td>
+											 -->
+
+											</tr>
+
+										</tbody>
+
+									</table>
+									<div class="m-4 p-4  col-10 d-flex justify-content-end">
+										<h3 th:text="${'Total: $'+total}"></h3>
+									</div>
+
+									<div id="global">
+										<div class="card-header">
+											<strong>Detalle de los Abonos </strong><small> </small>
+										</div>
+										<div id="mensajes">
+											<table class="table table-hover p-2">
+												<thead class="thead-light">
+													<tr>
+														<th scope="col">Fecha</th>
+														<th scope="col">Cantidad Abonada</th>
+
+
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="abono:${ordenes.estadosDeCuenta.idAbonos}">
+														<td th:text="${#dates.format(abono.fecha, 'dd-MMM-yyyy')}"></td>
+														<td th:text="'$'+${abono.abono}"></td>
+
+
+														<!-- 
+									<td th:text="${orden.estadosDeCuenta.id}"></td>
+									<td th:text="${orden.estadosDeCuenta.fecha}"></td>
+									<td th:text="${'$'+orden.estadosDeCuenta.deudaTotal}"></td>
+									<td th:text="${'$'+orden.estadosDeCuenta.dedudaActual}"></td>
+
+									<td><a href="# ">DETALLE</a></td>
+									<td><a
+										th:href="@{/clientes/edit/{id} (id=${orden.estadosDeCuenta.id} ) }"
+										class="btn btn-success btn-sm" role="button" title="Editar"><i
+											class="fas fa-pencil-alt" aria-hidden="true"></i></a> <a
+										th:href="@{/clientes/delete/{id} (id=${orden.estadosDeCuenta.id} ) }"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-success btn-sm" role="button" title="Eliminar"><i
+											class="fas fa-trash" aria-hidden="true"></i></a></td>
+											 -->
+
+													</tr>
+
+												</tbody>
+
+											</table>
+										</div>
+
+
+									</div>
+
+									<form th:if="${deudaTotal>0}" method="post"
+										th:action="@{/estado/abonar/}">
+										<div class="container-fluid mt-4 p-4 d-flex ">
+
+											<div class="row col-12  justify-content-center">
+
+												<div class="col-md-6 col-sm-12 m-4">
+													<input type="hidden" th:value="${ordenes.id} " name="id">
+													<input class="form-control" type="number" name="cantidad"
+														placeholder="Ingrese Cantidad a abonar.">
+												</div>
+												<div class="row col-12 d-flex  justify-content-center">
+													<input type="submit" class="btn btn-success" value="Abonar">
+												</div>
+											</div>
+
+
+
+
+										</div>
+									</form>
+								</div>
+							</div>
+
+
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+			<div class="clearfix"></div>
+
+			<footer
+				th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+			</footer>
+		</div>
+		<!-- /#right-panel -->
+
+		<div
+			th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+		</div>
+</body>
+
+</html>

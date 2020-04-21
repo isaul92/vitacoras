@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>CLIENTES | INFORMACION FISCAL</h1>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="animated fadeIn">
+
+
+					<div class="row">
+						<div class="col">
+							<div class="card">
+								<div class="card-header">
+									<small> </small>
+								</div>
+								
+								<div class="card-body card-block">
+
+									<form th:action="@{/datosFiscales/save}"
+										th:object="${datosfiscales}" method="post">
+										<div class="d-flex flex-wrap">
+
+
+											<input type="hidden" class="form-control" id="idCliente"
+												name="idCliente" th:value="${cliente.id}"> <input
+												type="hidden" class="form-control"> <input
+												type="hidden" class="form-control" id="id" name="id"
+												th:field="*{id}"> <input type="hidden"
+												class="form-control" th:field="*{estatusElim}">
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">RFC</label> <input type="text"
+														class="form-control" th:field="*{rfc}" placeholder="RFC"
+														required="required">
+												</div>
+											</div>
+
+
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Pais</label> <input type="text"
+														class="form-control" th:field="*{pais}" placeholder="Pais"
+														required="required">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Estado</label> <input
+														class="form-control" type="text" th:field="*{estado}"
+														placeholder="Ingrese Estado" required="required">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Calle</label> <input
+														class="form-control" type="text" th:field="*{calle}"
+														placeholder="Ingrese Calle" required="required">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Colonia</label> <input
+														class="form-control" type="text" th:field="*{colonia}"
+														placeholder="Ingrese Colonia" required="required">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">CP</label> <input class="form-control"
+														type="number" th:field="*{cp}"
+														placeholder="Ingrese Codigo Postal" required="required">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Ciudad</label> <input
+														class="form-control" type="text" th:field="*{ciudad}"
+														placeholder="Ingrese Ciudad" required="required">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Numero Interior y/o Exterior</label> <input
+														class="form-control" type="text" th:field="*{numIntExt}"
+														placeholder="Ingrese Numero de domiciolio"
+														required="required">
+												</div>
+											</div>
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Telefono</label> <input
+														class="form-control" type="number" th:field="*{telefono}"
+														placeholder="Ingrese Telefono" required="required">
+												</div>
+											</div>
+
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Correo</label> <input
+														class="form-control" type="email" th:field="*{correo}"
+														placeholder="Ingrese Email" required="required">
+												</div>
+											</div>
+
+
+
+										</div>
+										<hr>
+
+
+
+
+										<div class="d-flex justify-content-around">
+											<input class="btn btn-success" type="submit" value="Guardar">
+										</div>
+
+									</form>
+
+								</div>
+
+
+								<div th:if="${id !=null}" class="container">
+
+									<div class="row  col-12">
+										<div class="page-header float-left">
+											<div class="page-title">
+												<h1>
+													<strong>Añadir informacion Fiscal</strong>
+												</h1>
+											</div>
+										</div>
+									</div>
+
+									<hr>
+
+
+									<form th:action="@{/informacionFiscal/save}"
+										th:object="${requisitosfiscales}" method="post"
+										enctype="multipart/form-data">
+										<div class="d-flex flex-wrap">
+											<input type="hidden" name="idDatosFiscales"
+												th:value="${datosfiscales.id}"> <input type="hidden"
+												class="form-control" th:field="*{duracion}"> <input
+												type="hidden" class="form-control" th:field="*{cer}">
+											<input type="hidden" class="form-control"
+												th:field="*{datosfiscales.id}" id="idDatosFiscales">
+											<input type="hidden" class="form-control"
+												th:field="*{keyFiscal}">
+												<input type="hidden" class="form-control"
+												th:field="*{id}"> <input type="hidden"
+												class="form-control" th:value="${cliente.id}"
+												name="idCliente" id="idCliente"> <input
+												type="hidden" class="form-control" id="idRfc" name="idRfc"
+												th:field="*{datosfiscales.id}">
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="estatus">Tipo de Archivo</label> <select
+														th:field="*{tipoCet}" class="form-control" name="estatus"
+														id="tipoCet">
+														<option value="CSD">CSD</option>
+														<option value="FIEL">FIEL</option>
+
+													</select>
+												</div>
+											</div>
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<span th:text="${key}" class="badge badge-danger"></span> <label>Archivo
+														.key</label> <input type="file" name="files">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+
+												<div class="form-group">
+													<span th:text="${cer}" class="badge badge-danger"></span> <label>Archivo
+														.Cer</label><input class="mx-2" type="file" name="files">
+												</div>
+											</div>
+
+
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="fecha">Fecha Vigencia Inicial</label> <input
+														type="text" class="form-control" name="fecha" id="fecha"
+														th:field="*{vigenciaIni}" placeholder="Fecha De Inicio"
+														required="required">
+												</div>
+											</div>
+
+											<div class="col-md-6">
+												<div class="form-group">
+
+													<label for="fecha">Fecha Vigencia Final</label> <input
+														type="text" class="form-control" name="fecha2" id="fecha2"
+														th:field="*{vigencialFin}" placeholder="Fecha De Termino"
+														required="required">
+												</div>
+											</div>
+
+										</div>
+										<hr>
+
+										<div class="d-flex justify-content-around">
+											<input class="btn btn-success" type="submit" value="Guardar">
+										</div>
+
+									</form>
+
+								</div>
+
+								<hr>
+								<div class=" p-4 d-flex justify-content-center">
+									<strong><label> Informacion Fiscal Asociado a
+											<span th:text="${cliente.nombre}"></span>
+									</label></strong>
+								</div>
+								<div th:if="${id !=null}"
+									class="container-fluid d-flex flex-wrap justify-content-center p-4 m-4">
+
+
+
+
+									<div class="card col-lg-3 col-md-6 col-sm-12 col-sm-12 m-2"
+										th:each="task : ${datosfiscales.idFiscal}">
+										<div
+											class="card-title p-2 d-flex justify-content-end flex-wrap">
+											<a th:href="@{/datosFiscales/edit/{datoId}/{id}  (datoId=${datosfiscales.id}, id=${task.id} ) }"
+												class="btn btn-success btn-sm m-1" role="button"
+												title="Editar"><i class="fas fa-pencil-alt"
+												aria-hidden="true"></i></a> <a
+												th:href="@{/informacionFiscal/delete/{id} (id=${task.id} ) }"
+												onclick="return confirm('¿Estas seguro?')"
+												class="btn btn-success btn-sm m-1" role="button"
+												title="Eliminar"><i class="fas fa-trash"
+												aria-hidden="true"></i></a>
+										</div>
+										<div class="card-body">
+											<br> <span class="badge badge-info"
+												th:text="' '+ ${task.tipoCet}"></span> <br> <span>Requisitos
+												fiscales</span><br>KEY: <a
+												class="badge badge-primary m-2 flex-wrap d-flex"
+												th:href="@{/fiscal/{key}  (key=${task.keyFiscal } )  }"><span
+												th:text="''+ ${task.keyFiscal}"></span></a> <br>CER: <a
+												class="badge badge-primary m-2 flex-wrap d-flex"
+												th:href="@{/fiscal/{cer}  (cer=${task.cer } )  }"> <span
+												th:text="${task.cer}"></span>
+											</a> <br> <span class="mx-2">FECHA INICIAL</span>
+											<h1 class="badge badge-warning"
+												th:text="${#dates.format(task.vigenciaIni, 'dd-MM-yyyy')}"></h1>
+											<br> <span class="mx-2">FECHA VIGENCIA</span>
+											<h3 class="badge badge-warning"
+												th:text="${#dates.format(task.vigencialFin, 'dd-MM-yyyy')}"></h3>
+											<br> <span class="mx-2">DURACION</span>
+											<h3 class="badge badge-warning"
+												th:text="${task.duracion+' dias'}"></h3>
+
+
+
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+	<script th:src="@{/js/vitacoras/searchSub.js}"></script>
+</body>
+</html>

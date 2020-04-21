@@ -111,3 +111,6 @@ display: block!important;
     align-items: center;
 
 }
+footer{
+	min-width: 100px;
+}

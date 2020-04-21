@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>CLIENTES</h1>
+
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+		<div class="content">
+			<!-- .content -->
+			<div class="container-fluid">
+				<div class="card">
+
+					<h4 class="card-header">
+						<strong>Listado de Clientes</strong>
+					</h4>
+					<h1 class="badge badge-success" th:text="${msg}"></h1>
+					<div class="card-body">
+						<a class="btn btn-primary" th:href="@{/clientes/create}"
+							role="button"><i class="fas fa-file" aria-hidden="true"></i>
+							Nueva</a> <a class="btn btn-primary"
+							th:href="@{/clientes/indexPaginate/0}" role="button"> Mostrar
+							todos</a>
+						<hr>
+
+						<hr>
+						<div class="d-flex flex-wrap ">
+							<div class="col">
+								<div class="form-group">
+									<input class="form-control mb-4" required type="text"
+										name="inputCliente" id="inputCliente"
+										placeholder="Buscar un Cliente por Nombre">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+
+
+									<label class="btn btn-success" id="buscar"> Buscar</label>
+
+								</div>
+							</div>
+
+						</div>
+						<table class="table table-hover">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col">Nombre.</th>
+									<th scope="col">Apellidos.</th>
+									<th scope="col">Telefono.</th>
+									<th scope="col">Correo.</th>
+									<th scope="col">Estado de Cuenta.</th>
+									<th scope="col">Acciones.</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="cliente:${clientes}">
+
+									<td th:text="${cliente.id}"></td>
+
+									<td th:text="${cliente.nombre}">Recursos Humanos</td>
+									<td th:text="${cliente.apellidos}"></td>
+									<td th:text="${cliente.telefono}"></td>
+									<td th:text="${cliente.correo}"></td>
+									<td><a th:href="@{/estado/{id}/0  (id=${cliente.id})} ">VER ESTADO DE CUENTA</a></td>
+									<td><a
+										th:href="@{/clientes/edit/{id} (id=${cliente.id} ) }"
+										class="btn btn-success btn-sm" role="button" title="Editar"><i
+											class="fas fa-pencil-alt" aria-hidden="true"></i></a> <a
+										th:href="@{/clientes/delete/{id} (id=${cliente.id} ) }"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-success btn-sm" role="button" title="Eliminar"><i
+											class="fas fa-trash" aria-hidden="true"></i></a></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+						<nav th:if="${clientes.totalPages > 0}"
+							aria-label="Page navigation example">
+
+
+
+							<div th:if="${nombre != null}"
+								th:with="paginaAdelante='/clientes/indexPaginate/'+${clientes.number +1}+'/'+${nombre}">
+								<div th:if="${nombre != null}"
+									th:with="paginaAtras='/clientes/indexPaginate/'+${clientes.number -1}+'/'+${nombre}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+
+
+							<div th:if="${nombre == null}"
+								th:with="paginaAdelante='/clientes/indexPaginate/'+${clientes.number +1}">
+								<div th:if="${nombre == null}"
+									th:with="paginaAtras='/clientes/indexPaginate/'+${clientes.number -1}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+						</nav>
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+	<script th:src="@{/js/clientes/searchCliente.js}"></script>
+</body>
+
+</html>

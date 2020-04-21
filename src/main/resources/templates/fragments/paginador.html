@@ -1,8 +1,8 @@
 <ul th:fragment="paginador" class="pagination" >
 										<li class="page-item"><a
-											th:href="@{/vitacora/indexPaginate{paginaAtras}  ( paginaAtras=${paginaAtras})	}"
+											th:href="@{{paginaAtras}  ( paginaAtras=${paginaAtras})	}"
 											class="page-link">Anterior</a></li>
 										<li class="page-item"><a
-											th:href="@{/vitacora/indexPaginate{paginaAdelante} ( paginaAdelante=${paginaAdelante})  }"
+											th:href="@{{paginaAdelante} ( paginaAdelante=${paginaAdelante})  }"
 											class="page-link">Siguiente</a></li>
 									</ul>

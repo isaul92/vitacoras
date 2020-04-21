@@ -3,16 +3,21 @@ $("#buscar").on(
 		function(e) {
 			if ($("#buscadorLicencia").val() == ""
 					&& $("#fechaBuscar").val() == "") {
+				
 				alert("!Ingrese un valor!");
 			} else if ($("#buscadorLicencia").val() != ""
 					&& $("#fechaBuscar").val() == "") {
+				
 				window.location.href = "/vitacora/indexPaginate/0/"
 						+ $("#buscadorLicencia").val();
+				
 			} else if ($("#buscadorLicencia").val() == ""
 					&& $("#fechaBuscar").val() != "") {
 
 				window.location.href = "/vitacora/indexPaginate/0/fecha/"
 						+ document.querySelector('#fechaBuscar').getAttribute( "data-date");
+				console.log("as");
+				
 			} else if ($("#buscadorLicencia").val() != ""
 					&& $("#fechaBuscar").val() != "") {
 

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>CLIENTES</h1>
+
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+		<div class="content">
+			<!-- .content -->
+			<div class="container-fluid">
+				<div class="card">
+
+					<h4 class="card-header">
+						<strong>Datos Fiscales Clientes</strong>
+					</h4>
+					<h1 class="badge badge-success" th:text="${msg}"></h1>
+					<div class="card-body">
+					 <a class="btn btn-primary"
+							th:href="@{/datosFiscales/indexPaginate/0}" role="button">
+							Mostrar todos</a>
+						<hr>
+
+						<hr>
+						<div class="d-flex flex-wrap ">
+							<div class="col">
+								<div class="form-group">
+									<input class="form-control mb-4" required type="text"
+										name="inputRFC" id="inputRFC"
+										placeholder="Buscar informacion por RFC">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+
+
+									<label class="btn btn-success" id="buscar"> Buscar</label>
+
+								</div>
+							</div>
+
+						</div>
+						<table class="table table-hover">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col">RFC.</th>
+									<th scope="col">Nombre Cliente.</th>
+									<th scope="col">Acciones.</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="datosFiscal:${datosFiscales}">
+
+									<td th:text="${datosFiscal.id}"></td>
+									<td th:text="${datosFiscal.rfc}"></td>
+									<td th:text="${datosFiscal.idCliente.nombre+' '+datosFiscal.idCliente.apellidos}">Recursos
+										Humanos</td>
+
+
+									<td><a
+										th:href="@{/datosFiscales/edit/{id} (id=${datosFiscal.id} ) }"
+										class="btn btn-success btn-sm" role="button" title="Editar"><i
+											class="fas fa-pencil-alt" aria-hidden="true"></i></a> <a
+										th:href="@{/datosFiscales/delete/{id} (id=${datosFiscal.id} ) }"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-success btn-sm" role="button" title="Eliminar"><i
+											class="fas fa-trash" aria-hidden="true"></i></a></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+						<nav th:if="${datosFiscales.totalPages > 0}"
+							aria-label="Page navigation example">
+
+
+
+							<div th:if="${nombre == null}"
+								th:with="paginaAdelante='/datosFiscales/indexPaginate/'+${datosFiscales.number +1}">
+								<div th:if="${nombre == null}"
+									th:with="paginaAtras='/datosFiscales/indexPaginate/'+${datosFiscales.number -1}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+
+
+							<div th:if="${nombre != null}"
+								th:with="paginaAdelante='/datosFiscales/indexPaginate/'+${datosFiscales.number +1}+'/'+${nombre}">
+								<div th:if="${nombre != null}"
+									th:with="paginaAtras='/datosFiscales/indexPaginate/'+${datosFiscales.number -1}+'/'+${nombre}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+						</nav>
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+	<script th:src="@{/js/clientes/searchRFC.js}"></script>
+</body>
+
+</html>

@@ -39,7 +39,7 @@
 
 					<h4 class="card-header">
 						<strong>Listado de Categorias Servicios Roca</strong>
-						<h1 th:each="rep:${reportes}">1</h1>
+					
 					</h4>
 
 					<h1 class="badge badge-success" th:text="${msg}"></h1>
@@ -140,11 +140,11 @@
 
 
 							<div th:if="${licencia != null && fecha==null}"
-								th:with="paginaAdelante='/'+${vitacoras.number +1}+'/'+${licencia}">
+								th:with="paginaAdelante='/vitacora/indexPaginate/'+${vitacoras.number +1}+'/'+${licencia}">
 
 
-								<div th:if="${licencia != null}"
-									th:with="paginaAtras='/'+${vitacoras.number -1}+'/'+${licencia}">
+								<div th:if="${licencia != null && fecha==null}"
+									th:with="paginaAtras='/vitacora/indexPaginate/'+${vitacoras.number -1}+'/'+${licencia}">
 									<ul th:insert="/fragments/paginador ::paginador"></ul>
 								</div>
 
@@ -153,9 +153,9 @@
 
 
 							<div th:if="${licencia == null && fecha==null }"
-								th:with="paginaAdelante='/'+${vitacoras.number +1}">
+								th:with="paginaAdelante='/vitacora/indexPaginate/'+${vitacoras.number +1}">
 								<div th:if="${licencia == null  && fecha==null}"
-									th:with="paginaAtras='/'+${vitacoras.number -1}">
+									th:with="paginaAtras='/vitacora/indexPaginate/'+${vitacoras.number -1}">
 									<ul th:insert="/fragments/paginador ::paginador"></ul>
 								</div>
 							</div>
@@ -163,9 +163,9 @@
 
 
 							<div th:if="${licencia == null  && fecha!=null }"
-								th:with="paginaAdelante='/'+${vitacoras.number +1}+'/fecha/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
+								th:with="paginaAdelante='/vitacora/indexPaginate/'+${vitacoras.number +1}+'/fecha/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
 								<div th:if="${licencia == null  && fecha!=null}"
-									th:with="paginaAtras='/'+${vitacoras.number -1}+'/fecha/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
+									th:with="paginaAtras='/vitacora/indexPaginate/'+${vitacoras.number -1}+'/fecha/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
 									<ul th:insert="/fragments/paginador ::paginador"></ul>
 								</div>
 							</div>
@@ -174,9 +174,9 @@
 
 
 							<div th:if="${licencia != null  && fecha!=null }"
-								th:with="paginaAdelante='/'+${vitacoras.number +1}+'/'+${licencia}+'/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
+								th:with="paginaAdelante='/vitacora/indexPaginate/'+${vitacoras.number +1}+'/'+${licencia}+'/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
 								<div th:if="${licencia != null  && fecha!=null}"
-									th:with="paginaAtras='/'+${vitacoras.number -1}+'/'+${licencia}+'/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
+									th:with="paginaAtras='/vitacora/indexPaginate/'+${vitacoras.number -1}+'/'+${licencia}+'/'+${#dates.format(fecha, 'dd-MM-yyyy')}">
 									<ul th:insert="/fragments/paginador ::paginador"></ul>
 								</div>
 							</div>
@@ -213,7 +213,8 @@
 
 							</div>
 
-							<div class="col-1 d-flex align-content-center justify-content-between  mt-4 pt-2 ">
+							<div
+								class="col-1 d-flex align-content-center justify-content-between  mt-4 pt-2 ">
 								<div class="form-group mx-1 ">
 									<input type="submit" name="fecha" class="btn btn-success"
 										value="Buscar" id="buton">
@@ -223,7 +224,7 @@
 										value="Descargar Reporte" id="descargarReporte">
 								</div>
 							</div>
-							
+
 
 						</div>
 

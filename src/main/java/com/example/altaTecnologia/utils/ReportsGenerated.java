@@ -12,14 +12,134 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.altaTecnologia.models.vitacora;
-import com.example.altaTecnologia.service.IVitacoraService;
+import com.example.altaTecnologia.models.ordenesDeServicio.ordenservicio;
+import com.example.altaTecnologia.models.ordenesDeServicio.serviceprod;
+import com.example.altaTecnologia.models.vitacorasRoca.vitacora;
 
 public class ReportsGenerated {
-	@Autowired
-	IVitacoraService repoService;
+	public static ByteArrayInputStream getReporteCreditos(List<ordenservicio> ordenes) throws IOException {
+		String[] colums = { "fecha", "Credito Total", "Saldo Actual" };
+		HSSFWorkbook wb = new HSSFWorkbook();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		HSSFSheet sheet = wb.createSheet();
+		HSSFCellStyle titleStyle = wb.createCellStyle();
+		HSSFPalette palette = wb.getCustomPalette();
+		HSSFColor myColor = palette.findSimilarColor(193, 206, 212);
+		short palIndex = myColor.getIndex();
+		titleStyle.setFillForegroundColor(palIndex);
+		titleStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+		HSSFRow row = sheet.createRow(0);
+
+		for (int i = 0; i < colums.length; i++) {
+			HSSFCell cell = row.createCell(i);
+			cell.setCellValue(colums[i]);
+			// style.setFillForegroundColor(HSSFColor.LIME.index);
+			cell.setCellStyle(titleStyle);
+		}
+		// CREAR BACKGROUND
+		HSSFCellStyle titleStyle2 = wb.createCellStyle();
+
+		HSSFColor myColor2 = palette.findSimilarColor(135, 187, 213);
+		short palIndex2 = myColor2.getIndex();
+		titleStyle2.setFillForegroundColor(palIndex2);
+		titleStyle2.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+
+		List<ordenservicio> lista = ordenes;
+		int initRow = 1;
+		// CREAR BACKGROUND
+
+		
+		for (ordenservicio v : lista) {
+			row = sheet.createRow(initRow);
+			sheet.setDefaultColumnWidth(10);
+
+///Me carga la chingada xdString[] colums = { "fecha", "Credito Total", "Saldo Actual" };
+
+			row.createCell(0).setCellValue(v.getFecha() + "");
+			row.getCell(0).setCellStyle(titleStyle2);
+			row.createCell(1).setCellValue(v.getEstadosDeCuenta().getDeudaTotal());
+			row.getCell(1).setCellStyle(titleStyle2);
+			row.createCell(2).setCellValue(v.getEstadosDeCuenta().getDedudaActual());
+			row.getCell(2).setCellStyle(titleStyle2);
+
+			initRow++;
+
+		}
+
+		wb.write(stream);
+		wb.close();
+
+		return new ByteArrayInputStream(stream.toByteArray());
+	}
+
+	public static ByteArrayInputStream getAllProductos(List<serviceprod> productos) throws IOException {
+		String[] colums = { "id", "nombre", "descr", "precio", "Unidad", "categoria" };
+		// creo libro
+		HSSFWorkbook wb = new HSSFWorkbook();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		// creo hoja
+		HSSFSheet sheet = wb.createSheet();
+
+		// CREAR BACKGROUND
+		HSSFCellStyle titleStyle = wb.createCellStyle();
+		HSSFPalette palette = wb.getCustomPalette();
+		HSSFColor myColor = palette.findSimilarColor(193, 206, 212);
+		short palIndex = myColor.getIndex();
+		titleStyle.setFillForegroundColor(palIndex);
+		titleStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+
+		// creo renglon
+		HSSFRow row = sheet.createRow(0);
+
+		// creo celdas
+		for (int i = 0; i < colums.length; i++) {
+			HSSFCell cell = row.createCell(i);
+			cell.setCellValue(colums[i]);
+			// style.setFillForegroundColor(HSSFColor.LIME.index);
+			cell.setCellStyle(titleStyle);
+		}
+		// CREAR BACKGROUND
+		HSSFCellStyle titleStyle2 = wb.createCellStyle();
+
+		HSSFColor myColor2 = palette.findSimilarColor(135, 187, 213);
+		short palIndex2 = myColor2.getIndex();
+		titleStyle2.setFillForegroundColor(palIndex2);
+		titleStyle2.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+
+		List<serviceprod> lista = productos;
+		int initRow = 1;
+
+		for (serviceprod v : lista) {
+			row = sheet.createRow(initRow);
+			sheet.setDefaultColumnWidth(10);
+			HSSFCell cell = row.createCell(0);
+			cell.setCellValue(v.getId());
+			// style.setFillForegroundColor(HSSFColor.LIME.index);
+			cell.setCellStyle(titleStyle2);
+
+///Me carga la chingada xd
+
+			row.createCell(1).setCellValue(v.getNombre());
+			row.getCell(1).setCellStyle(titleStyle2);
+			row.createCell(2).setCellValue(v.getDescr());
+			row.getCell(2).setCellStyle(titleStyle2);
+			row.createCell(3).setCellValue(v.getPrecio());
+			row.getCell(3).setCellStyle(titleStyle2);
+			row.createCell(4).setCellValue(v.getIdUnidad().getNombre());
+			row.getCell(4).setCellStyle(titleStyle2);
+			row.createCell(5).setCellValue(v.getCategoriaId().getNombre());
+			row.getCell(5).setCellStyle(titleStyle2);
+
+			initRow++;
+
+		}
+
+		wb.write(stream);
+		wb.close();
+
+		return new ByteArrayInputStream(stream.toByteArray());
+	}
 
 	public static ByteArrayInputStream getAll(List<vitacora> vitacoras) throws IOException {
 		String[] colums = { "id", "fecha", "horaInicial", "horaFinal", "categoriaActiv", "proyecto", "licencia",
@@ -50,7 +170,7 @@ public class ReportsGenerated {
 		}
 		// CREAR BACKGROUND
 		HSSFCellStyle titleStyle2 = wb.createCellStyle();
-		HSSFPalette palette2 = wb.getCustomPalette();
+
 		HSSFColor myColor2 = palette.findSimilarColor(135, 187, 213);
 		short palIndex2 = myColor2.getIndex();
 		titleStyle2.setFillForegroundColor(palIndex2);
@@ -70,7 +190,7 @@ public class ReportsGenerated {
 ///Me carga la chingada xd
 			row.createCell(1).setCellValue(v.getFecha() + "");
 			row.getCell(1).setCellStyle(titleStyle2);
-sheet.setDefaultColumnWidth(10);
+			sheet.setDefaultColumnWidth(10);
 			row.createCell(2).setCellValue(v.getHoraInicial());
 			row.getCell(2).setCellStyle(titleStyle2);
 			row.createCell(3).setCellValue(v.getHoraFinal());

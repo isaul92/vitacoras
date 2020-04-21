@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>CREDITO A CLIENTES</h1>
+
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+		<div class="content">
+			<!-- .content -->
+			<div class="container-fluid">
+				<div class="card">
+
+					<h4 class="card-header">
+						<strong>ESTADO DE CUENTA</strong>
+					</h4>
+
+					<h1 class="badge badge-success" th:text="${msg}"></h1>
+					<div class="card-body">
+						<div class="row d-flex">
+							<div class="col-12">
+								<h3 th:text="${cliente.nombre +' '+cliente.apellidos}">ISAUL</h3>
+							</div>
+							<div class="col-12">
+								<h2>
+									<small class="p-2 m-3"
+										th:text="${'Saldo Actual: $'+deudaTotal}"></small>
+								</h2>
+							</div>
+							<div class="col-md-2 col-sm-12">
+
+								<div class="form-group">
+
+									<label for="fecha">Desde el Mes </label> <input
+										class="form-control" name="fecha" id="fecha">
+								</div>
+							</div>
+							<div class="col-md-2  col-sm-12 ">
+								<div class="form-group">
+									<label for="fecha">Al Mes</label> <input name="fecha2"
+										class="form-control" id="fecha2">
+								</div>
+
+
+							</div>
+
+							<div
+								class="col-1 d-flex align-content-center justify-content-between  mt-4 pt-2 ">
+								<div class="form-group mx-1 ">
+									<input type="submit" name="fecha" class="btn btn-success"
+										value="Buscar" id="buton">
+								</div>
+								<div class="form-group ">
+									<input type="submit" name="fecha" class="btn btn-success"
+										value="Descargar Reporte" id="descargarReporte">
+								</div>
+							</div>
+
+
+						</div>
+						<a class="btn btn-primary"
+							th:href="@{/estado/{id}/0 (id=${cliente.id})}" role="button">
+							Mostrar todos</a>
+						<hr>
+
+
+						<table class="table table-hover">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col">Fecha.</th>
+									<th scope="col">Total Deuda.</th>
+									<th scope="col">Saldo Pendiente .</th>
+									<th scope="col">Acciones.</th>
+									<th scope="col"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="orden:${ordenes}">
+									<td th:text="${orden.estadosDeCuenta.id}"></td>
+									<td th:text="${orden.estadosDeCuenta.fecha}"></td>
+									<td th:text="${'$'+orden.estadosDeCuenta.deudaTotal}"></td>
+									<td th:text="${'$'+orden.estadosDeCuenta.dedudaActual}"></td>
+
+									<td><a
+										th:href="@{/estado/detalle/{id} ( id=${orden.id})} ">DETALLE</a></td>
+									<td><a
+										th:href="@{/clientes/edit/{id} (id=${orden.estadosDeCuenta.id} ) }"
+										class="btn btn-success btn-sm" role="button" title="Editar"><i
+											class="fas fa-pencil-alt" aria-hidden="true"></i></a> <a
+										th:href="@{/clientes/delete/{id} (id=${orden.estadosDeCuenta.id} ) }"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-success btn-sm" role="button" title="Eliminar"><i
+											class="fas fa-trash" aria-hidden="true"></i></a></td>
+
+								</tr>
+
+							</tbody>
+						</table>
+
+						<nav th:if="${ordenes.totalPages > 0}"
+							aria-label="Page navigation example">
+
+							<div th:if="${fecha1 == null}">
+								<div
+									th:with="paginaAdelante='/estado/'+${cliente.id}+'/'+${ordenes.number+1}">
+									<div
+										th:with="paginaAtras='/estado/'+${cliente.id}+'/'+${ordenes.number-1}">
+										<ul th:insert="/fragments/paginador ::paginador"></ul>
+									</div>
+								</div>
+							</div>
+
+
+							<div th:if="${fecha1 != null}"
+								th:with="paginaAdelante='/estado/'+${cliente.id}+'/'+${ordenes.number+1}+'/'+${#dates.format(fecha1, 'dd-MM-yyyy')}+'/'+${#dates.format(fecha2, 'dd-MM-yyyy')}">
+								<div th:if="${fecha1 != null}"
+									th:with="paginaAtras='/estado/'+${cliente.id}+'/'+${ordenes.number-1}+'/'+${#dates.format(fecha1, 'dd-MM-yyyy')}+'/'+${#dates.format(fecha2, 'dd-MM-yyyy')}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+
+
+						</nav>
+
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+	<script th:src="@{/js/clientes/searchEstado.js}"></script>
+</body>
+
+</html>

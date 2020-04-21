@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+s
+</head>
+
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>SERVICIOS ROCA</h1>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<div class="content ">
+			<!-- .content -->
+			<div class="container-fluid">
+				<div class="card">
+
+					<h4 class="card-header">
+						<strong>Listado de Productos/Servicios </strong>
+
+					</h4>
+
+					<h1 class="badge badge-success" th:text="${msg}"></h1>
+					<div class="card-body">
+						<a class="btn btn-primary" th:href="@{/productosService/create}"
+							role="button"><i class="fas fa-file" aria-hidden="true"></i>
+							Nueva</a> <a class="btn btn-primary"
+							th:href="@{/productosService/indexPaginate/0}" role="button">
+							Mostrar todos</a>
+						<hr>
+						<div class="container-fluid">
+							<div class="row container-fluid">
+								<div class="container-fluid">
+									<form id="buscarProductos" method="POST">
+										<div class="radiogp btn-group btn-group-toggle mb-2"
+											data-toggle="buttons">
+											<label class="btn btn-outline-primary active"> <input
+												type="radio" name="options" value="idBuscarProducto"
+												id="idBuscarProducto" autocomplete="off" checked> ID
+											</label> <label class="btn btn-outline-primary"> <input
+												type="radio" name="options" value="nombreBuscarProducto"
+												id="nombreBuscarProducto" autocomplete="off"> Nombre
+											</label> <label class="btn btn-outline-primary"> <input
+												type="radio" name="options"
+												value="descripcionBuscarProducto"
+												id="descripcionBuscarProducto" autocomplete="off">
+												Descripcion
+											</label>
+										</div>
+										<div class="d-flex flex-wrap ">
+											<div class="col">
+												<div class="form-group">
+													<input class="form-control mb-4" required type="text"
+														name="buscadorProductosInput" id="inputBuscarProductoId"
+														placeholder="Buscar un producto">
+												</div>
+											</div>
+											<div class="col">
+												<div class="form-group">
+
+
+													<label class="btn btn-success" id="buscar"> Buscar</label>
+
+												</div>
+											</div>
+
+										</div>
+									</form>
+
+								</div>
+
+
+							</div>
+						</div>
+						<table class="table table-hover table-responsive">
+							<thead class="thead-light">
+								<tr>
+
+									<th scope="col">Id.</th>
+									<th scope="col">Nombre.</th>
+									<th scope="col">Descripcion.</th>
+									<th scope="col">U. Medida.</th>
+									<th scope="col">Categoria.</th>
+									<th scope="col">Precio.</th>
+									<th scope="col">Estatus.</th>
+									<th scope="col">Acciones.</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="servicio:${servicios}">
+
+									<td th:text="${servicio.id}">Recursos Humanos</td>
+									<td th:text="${servicio.nombre}">Recursos Humanos</td>
+
+									<td th:text="${servicio.descr}">Recursos Humanos</td>
+									<td th:text="''+${servicio.idUnidad.nombre}">Recursos
+										Humanos</td>
+									<td th:text="${servicio.categoriaId.nombre}">Recursos
+										Humanos</td>
+									<td th:text="${servicio.precio}">Recursos Humanos</td>
+
+									<td><span th:if="${servicio.estatus=='ACTIVA'}"
+										class="badge badge-success">ACTIVA</span> <span
+										th:unless="${servicio.estatus=='ACTIVA'}"
+										class="badge badge-danger">DESACTIVA</span></td>
+
+
+									<td><a
+										th:href="@{/productosService/edit/{id} (id=${servicio.id} ) }"
+										class="btn btn-success btn-sm" role="button" title="Editar"><i
+											class="fas fa-pencil-alt" aria-hidden="true"></i></a> <a
+										th:href="@{/productosService/delete/{id} (id=${servicio.id} ) }"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-success btn-sm" role="button" title="Eliminar"><i
+											class="fas fa-trash" aria-hidden="true"></i></a></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+
+						<nav th:if="${servicios.totalPages > 0}"
+							aria-label="Page navigation example">
+
+							<div th:if="${desc != null}"
+								th:with="paginaAdelante='/productosService/indexPaginate/'+${servicios.number +1}+'/desc/'+${desc}">
+								<div th:if="${desc != null}"
+									th:with="paginaAtras='/productosService/indexPaginate/'+${servicios.number -1}+'/desc/'+${desc}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+
+							<div th:if="${nombre != null}"
+								th:with="paginaAdelante='/productosService/indexPaginate/'+${servicios.number +1}+'/nombre/'+${nombre}">
+								<div th:if="${nombre != null}"
+									th:with="paginaAtras='/productosService/indexPaginate/'+${servicios.number -1}+'/nombre/'+${nombre}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+
+
+							<div th:if="${id != null}"
+								th:with="paginaAdelante='/productosService/indexPaginate/'+${servicios.number +1}+'/id/'+${id}">
+								<div th:if="${id != null}"
+									th:with="paginaAtras='/productosService/indexPaginate/'+${servicios.number -1}+'/id/'+${id}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+
+
+							<div th:if="${id == null && nombre==null && desc==null}"
+								th:with="paginaAdelante='/productosService/indexPaginate/'+${servicios.number +1}">
+								<div th:if="${id == null && nombre==null && desc==null}"
+									th:with="paginaAtras='/productosService/indexPaginate/'+${servicios.number -1}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+
+							</div>
+
+
+						</nav>
+
+
+
+
+
+
+
+
+
+						</nav>
+						<div class="form-group ">
+							<a th:href='@{/productosService/reportes}'
+								class="btn btn-success">Descargar Catalogo</a>
+						</div>
+
+
+
+
+					</div>
+
+
+				</div>
+
+				<div class="container-fluid ">
+					<div class="row">
+						<div class="col-md-12 col-sm-12">
+							<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+						</div>
+
+					</div>
+
+				</div>
+
+
+
+			</div>
+			<div class="clearfix"></div>
+
+			<footer
+				th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+			</footer>
+		</div>
+		<!-- /#right-panel -->
+		<script th:src="@{/js/ordenesServicio/searchProduc.js}"></script>
+		<div
+			th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+		</div>
+</body>
+
+</html>

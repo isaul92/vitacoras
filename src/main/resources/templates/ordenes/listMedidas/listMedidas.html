@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>ORDENES DE SERVICIO</h1>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content">
+			<!-- .content -->
+			<div class="container">
+				<div class="card">
+
+					<h4 class="card-header">
+						<strong>Listado de Medidas</strong>
+					</h4>
+					<h1 class="badge badge-success" th:text="${msg}"></h1>
+					<div class="card-body">
+						<a class="btn btn-primary"
+							th:href="@{/medidas/create}"
+							role="button"><i class="fas fa-file" aria-hidden="true"></i>
+							Nueva</a>
+						<hr>
+						<table class="table table-hover">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col">Nombre.</th>
+								<th scope="col">Acciones.</th>
+								
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="medida:${medidas}">
+
+									<td th:text="${medida.id}"></td>
+							
+									<td th:text="${medida.nombre}">Recursos Humanos</td>
+
+
+									<td><a
+										th:href="@{/medidas/edit/{id} (id=${medida.id} ) }"
+										class="btn btn-success btn-sm" role="button" title="Editar"><i
+											class="fas fa-pencil-alt" aria-hidden="true"></i></a> <a
+										th:href="@{/medidas/delete/{id} (id=${medida.id} ) }"
+										onclick="return confirm('¿Estas seguro?')"
+										class="btn btn-success btn-sm" role="button" title="Eliminar"><i
+											class="fas fa-trash" aria-hidden="true"></i></a></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+						<nav th:if="${medidas.totalPages > 0}"
+							aria-label="Page navigation example">
+							<ul class="pagination">
+								<li class="page-item"><a
+									th:href="@{/medidas/indexPaginate(page=${medidas.number -1})}"
+									class="page-link">Anterior</a></li>
+								<li class="page-item"><a
+									th:href="@{/medidas/indexPaginate(page=${medidas.number + 1})}"
+									class="page-link">Siguiente</a></li>
+							</ul>
+						</nav>
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+body{
+	margin-bottom: 0px!important;
+}
+
+
+.content{
+	min-height: 675px;
+}
+
+
+
+/***abonos **/
+#global {
+	height: 300px;
+	width: auto;
+	border: 1px solid #ddd;
+	background: #f1f1f1;
+	overflow-y: scroll;
+}

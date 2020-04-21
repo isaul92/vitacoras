@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>ORDENES DE SERVICIO | CREAR PRODUCTO/SERVICIO</h1>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="animated fadeIn">
+
+
+					<div class="row">
+						<div class="col">
+							<div class="card">
+								<div class="card-header">
+									<strong>Crear Producto / Servicio</strong><small> </small>
+								</div>
+
+								<div class="card-body card-block">
+
+
+
+
+									<form th:action="@{/productosService/save}"
+										th:object="${serviceprod}" method="post"
+										enctype="multipart/form-data">
+
+
+										<div th:if="${#fields.hasErrors('*')}"
+											class='alert alert-danger' role='alert'>
+											Por favor corrija los siguientes errores:
+											<ul>
+												<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+											</ul>
+										</div>
+
+										<div class="d-flex flex-wrap">
+
+
+											<input type="hidden" th:field="*{imgPrincipal}"
+												class="form-control" name="estatus" id="estatus"> <input
+												type="hidden" th:field="*{id}" class="form-control"
+												name="estatus" id="estatus">
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="estatus">Estatus</label> <select
+														th:field="*{estatus}" class="form-control" name="estatus"
+														id="estatus">
+														<option value="ACTIVA">ACTIVA</option>
+														<option value="INACTIVA">DESACTIVA</option>
+
+													</select>
+												</div>
+											</div>
+
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Nombre</label> <input type="text"
+														class="form-control" name="licencia" id="licencia"
+														th:field="*{nombre}" placeholder="Nombre del producto"
+														required="required">
+												</div>
+											</div>
+
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Descripcion del Producto</label> <input
+														type="text" class="form-control" name="contacto"
+														id="contacto" th:field="*{descr}"
+														placeholder="Descripcion del Servicio o Producto"
+														required="required">
+												</div>
+
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="categoria">Unidad de Medida</label> <select
+														th:field="*{idUnidad.id}"
+														class="form-control categoriasForm" name="categoria">
+														<option value="1"
+															th:each="unidadmedida : ${unidadmedidas}"
+															th:value="${unidadmedida.id}"
+															th:text="${unidadmedida.nombre}">Ventas</option>
+
+													</select>
+												</div>
+											</div>
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="categoria">Categoria</label> <select
+														th:field="*{categoriaId.id}"
+														class="form-control categoriasForm" name="categoria">
+														<option value="1" th:each="categoria : ${categorias}"
+															th:value="${categoria.id}" th:text="${categoria.nombre}">Ventas</option>
+
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Precio</label> <input type="text"
+														class="form-control" name="licencia" id="licencia"
+														th:field="*{precio}" placeholder="Precio del producto"
+														required="required">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="archivoImagen">Imagen Principal</label> <input
+														type="file" class="form-control-file" name="archivoImagen"
+														id="archivoImagen">
+													<div class="col-8 mt-2">
+														<a data-fancybox="gallery"
+															th:href='@{/logos/{img} (img=*{imgPrincipal})}'> <img
+															class="img-fluid "
+															th:src='@{/logos/{img} (img=*{imgPrincipal})}'>
+														</a>
+													</div>
+
+												</div>
+											</div>
+
+											<div class="col-md-3 flex-wrap">
+												<div class="form-group">
+													<p>
+														<label for="image">Galeria de Imagenes: </label> <input
+															type="file" name="images" multiple="multiple" />
+													</p>
+												</div>
+											</div>
+
+										</div>
+
+										<div class="d-flex justify-content-around">
+											<input class="btn btn-success" type="submit" value="Guardar">
+										</div>
+
+									</form>
+									<h2>Galeria de Imagenes</h2>
+									<hr>
+									<div class="d-flex flex-wrap justify-content-center mt-4 pt-4">
+
+										<div th:each="imagen:${imagenes}"
+											class="  col-2  rounded  m-1 p-0 d-flex  ">
+											<div>
+												<td><a
+													th:href="@{/productosService/delete/img/{id} (id=${imagen.id+'/'+id} )   }"
+													onclick="return confirm('¿Estas seguro?')"
+													class="btn btn-success btn-sm" role="button"
+													title="Eliminar"><i class="fas fa-trash"
+														aria-hidden="true"></i></a></td>
+											</div>
+											<a data-fancybox="gallery"
+												th:href='@{/logos/{img} (img=${imagen.nombre})}'> <img
+												class="img-fluid p-2 "
+												th:src='@{/logos/{img} (img=${imagen.nombre})}'>
+											</a>
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+	<script th:src="@{/js/vitacoras/searchSub.js}"></script>
+</body>
+</html>

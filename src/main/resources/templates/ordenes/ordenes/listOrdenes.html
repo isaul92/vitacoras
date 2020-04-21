@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
+</head>
+<body>
+
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>ORDENES DE SERVICIO</h1>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content">
+			<!-- .content -->
+			<div class="container-fluid">
+				<div class="card">
+
+					<h4 class="card-header">
+						<strong>Listado de Ordenes de Servicio</strong>
+					</h4>
+					<h1 class="badge badge-success" th:text="${msg}"></h1>
+					<div class="card-body">
+						<a class="btn btn-primary" th:href="@{/medidas/create}"
+							role="button"><i class="fas fa-file" aria-hidden="true"></i>
+							Nueva</a> <a class="btn btn-primary" th:href="@{/ordenes/indexPaginate/0}"
+							role="button"><i class="fas fa-file" aria-hidden="true"></i>
+							Mostrar todos</a>
+						<hr>
+						<div class="container-fluid">
+							<div class="row container-fluid">
+								<div class="container-fluid">
+									<form id="buscarProductos" method="POST">
+										<div class="radiogp btn-group btn-group-toggle mb-2"
+											data-toggle="buttons">
+											<label id="idOrden" class="btn btn-outline-primary active">
+												<input type="radio" name="options" value="idbuscarOrden"
+												autocomplete="off" checked> Folio
+											</label> <label class="btn btn-outline-primary" id="nombreOrden">
+												<input type="radio" name="options"
+												value="nombreBuscarProducto" autocomplete="off">
+												Nombre Cliente
+											</label> <label class="btn btn-outline-primary" id="fechaVigencia">
+												<input type="radio" name="options" value="fechaOrden"
+												autocomplete="off"> Fecha Vigencia
+											</label>
+
+										</div>
+										<div class="d-flex flex-wrap ">
+											<div class="col">
+												<div class="form-group">
+													<input class="form-control mb-4" required type="text"
+														name="buscadorOrdenesInput" id="buscadorOrdenes"
+														placeholder="Buscar una Orden por folio"> <input
+														style="display: none" class="form-control" type="text"
+														id="fechaBuscar" placeholder="Fecha">
+												</div>
+											</div>
+											<div class="col">
+												<div class="form-group">
+
+
+													<label class="btn btn-success" id="buscar"> Buscar</label>
+
+												</div>
+											</div>
+
+										</div>
+									</form>
+
+								</div>
+
+
+							</div>
+						</div>
+						<table class="table table-hover">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Folio</th>
+									<th scope="col">Cliente.</th>
+									<th scope="col">Vigencia</th>
+									<th scope="col">Vigencia Restante</th>
+									<th scope="col">Factura</th>
+									<th scope="col">Total</th>
+									<th scope="col">Credito</th>
+									<th scope="col">Tipo de Orden</th>
+									<th scope="col">ACCIONES</th>
+
+									<th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="orden:${ordenes}">
+									<td th:text="${orden.id}"></td>
+									<td
+										th:text="${orden.clienteId.nombre +' '+orden.clienteId.apellidos}"></td>
+									<td><span th:if="${orden.estatus=='COMPLETADA'}"
+										class="badge badge-success">COMPLETADA</span> <span
+										th:if="${orden.estatus=='CANCELADA'}"
+										class="badge badge-danger">CANCELADA</span> <span
+										th:if="${orden.estatus=='PROCESO'}"
+										class="badge badge-warning">PROCESO</span> <span
+										th:if="${orden.estatus=='COMPLETADA C/VIGENCIA'}"
+										class="badge badge-success"
+										th:text="${orden.estatus+' '+#dates.format(orden.vigencia, 'dd-MMM-yyyy')}">PROCESO</span>
+									</td>
+									<td><span
+										th:if="${orden.estatus=='COMPLETADA C/VIGENCIA'}"
+										th:text="${orden.diasVigencia+' Dias'}"></span> <span
+										th:unless="${orden.estatus=='COMPLETADA C/VIGENCIA'}">NO
+											APLICA</span></td>
+									<td><span th:if="${orden.estatusFactura==1}">CON
+											FACTURA</span> <span th:unless="${orden.estatusFactura==1}">SIN
+											FACTURA</span></td>
+									<td><span th:text="${'$'+orden.total}"></span></td>
+
+									<td><span th:if="${orden.estadosDeCuenta!=null}"
+										class="badge badge-success">A CREDITO </span> <span
+										th:unless="${orden.estadosDeCuenta!=null}"
+										class="badge badge-info">SIN CREDITO </span></td>
+
+									<td><span th:text="${orden.tipoOrden}"
+										class="badge badge-info">A CREDITO </span> </span></td>
+
+
+
+
+
+									<td class="d-flex justify-content-center"><a
+										th:href="@{/medidas/edit/{id} (id=${orden.id} ) }"
+										class="btn btn-success btn-sm" role="button" title="Editar"><i
+											class="fas fa-pencil-alt" aria-hidden="true"></i></a></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+						<nav th:if="${ordenes.totalPages > 0}"
+							aria-label="Page navigation example">
+
+
+
+							<div th:if="${folio==null && nombre==null && fecha==null}"
+								th:with="paginaAdelante='/ordenes/indexPaginate/'+${ordenes.number +1}">
+								<div
+									th:with="paginaAtras='/ordenes/indexPaginate/'+${ordenes.number -1}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+							<div th:if="${nombre!=null}"
+								th:with="paginaAdelante='/ordenes/indexPaginate/'+${ordenes.number +1}+'/nombre/'+${nombre}">
+								<div
+									th:with="paginaAtras='/ordenes/indexPaginate/'+${ordenes.number -1}+'/nombre/'+${nombre}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+							<div th:if="${folio!=null}"
+								th:with="paginaAdelante='/ordenes/indexPaginate/'+${ordenes.number +1}+'/folio/'+${folio}">
+								<div
+									th:with="paginaAtras='/ordenes/indexPaginate/'+${ordenes.number -1}+'/folio/'+${folio}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+							
+							<div th:if="${fecha!=null}"
+								th:with="paginaAdelante='/ordenes/indexPaginate/'+${ordenes.number +1}+'/fecha/'+${#dates.format(fecha, 'yyyy-MM-dd')}">
+								<div
+									th:with="paginaAtras='/ordenes/indexPaginate/'+${ordenes.number -1}+'/fecha/'+${#dates.format(fecha, 'yyyy-MM-dd')}">
+									<ul th:insert="/fragments/paginador ::paginador"></ul>
+								</div>
+							</div>
+							
+							
+						</nav>
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+	<script th:src="@{/js/ordenesServicio/searchOrden.js}"></script>
+</body>
+</html>
