@@ -42,8 +42,7 @@
 					</h4>
 					<h1 class="badge badge-success" th:text="${msg}"></h1>
 					<div class="card-body">
-						<a class="btn btn-primary"
-							th:href="@{/medidas/create}"
+						<a class="btn btn-primary" th:href="@{/medidas/create}"
 							role="button"><i class="fas fa-file" aria-hidden="true"></i>
 							Nueva</a>
 						<hr>
@@ -52,8 +51,8 @@
 								<tr>
 									<th scope="col">Id</th>
 									<th scope="col">Nombre.</th>
-								<th scope="col">Acciones.</th>
-								
+									<th scope="col">Acciones.</th>
+
 
 								</tr>
 							</thead>
@@ -61,15 +60,14 @@
 								<tr th:each="medida:${medidas}">
 
 									<td th:text="${medida.id}"></td>
-							
+
 									<td th:text="${medida.nombre}">Recursos Humanos</td>
 
 
-									<td><a
-										th:href="@{/medidas/edit/{id} (id=${medida.id} ) }"
+									<td><a th:href="@{/medidas/edit/{id} (id=${medida.id} ) }"
 										class="btn btn-success btn-sm" role="button" title="Editar"><i
 											class="fas fa-pencil-alt" aria-hidden="true"></i></a> <a
-										th:href="@{/medidas/delete/{id} (id=${medida.id} ) }"
+										th:href="@{/ordenes/eliminarProducto/{id} (id=${medida.id} ) }"
 										onclick="return confirm('¿Estas seguro?')"
 										class="btn btn-success btn-sm" role="button" title="Eliminar"><i
 											class="fas fa-trash" aria-hidden="true"></i></a></td>

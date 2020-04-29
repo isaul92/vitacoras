@@ -17,7 +17,7 @@ public interface IClientes {
 	Page <clientes> indexPaginate(Pageable page);
 	Page <clientes> indexPaginatePorNombre(Pageable page, String nombre);
 	List<clientes> buscarPorNombre(String nombre);
-	
+	List<clientes> buscarTodosPorNombreApi(String nombre);
 	
 	
 	

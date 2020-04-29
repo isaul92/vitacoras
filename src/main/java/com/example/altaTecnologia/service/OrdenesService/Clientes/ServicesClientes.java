@@ -31,12 +31,12 @@ public class ServicesClientes implements IClientes {
 	}
 
 	@Override
-	
+
 	public void eliminar(int id) {
 		clientes c = repoClientes.buscarPorId(id).get();
 		c.setEstatusElim(0);
 		repoClientes.save(c);
-		
+
 		List<datosfiscales> lista = c.getIdDatosFiscales();
 		for (datosfiscales d : lista) {
 			List<requisitosfiscales> lis = d.getIdFiscal();
@@ -76,6 +76,12 @@ public class ServicesClientes implements IClientes {
 	public List<clientes> buscarPorNombre(String nombre) {
 		// TODO Auto-generated method stub
 		return repoClientes.buscarTodosPorNombre(nombre);
+	}
+
+	@Override
+	public List<clientes> buscarTodosPorNombreApi(String nombre) {
+		// TODO Auto-generated method stub
+		return repoClientes.buscarTodosPorNombreApi(nombre);
 	}
 
 }

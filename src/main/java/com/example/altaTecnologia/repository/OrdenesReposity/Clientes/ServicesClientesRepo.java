@@ -17,6 +17,7 @@ public interface ServicesClientesRepo extends JpaRepository<clientes, Integer> {
 	List<clientes> buscarTodos();
 
 	
+	
 
 	@Query("SELECT c FROM clientes c where c.estatusElim=1")
 	Page<clientes> buscarTodos(Pageable page);
@@ -30,6 +31,8 @@ public interface ServicesClientesRepo extends JpaRepository<clientes, Integer> {
 	@Query("SELECT c FROM clientes c where c.estatusElim=1 and c.nombre=:nombre")
 	List<clientes> buscarTodosPorNombre(@Param("nombre") String nombre);
 
+	@Query("SELECT c FROM clientes c where c.estatusElim=1 and (c.nombre LIKE %:nombre% or c.apellidos LIKE %:nombre%)")	
+	List<clientes> buscarTodosPorNombreApi(@Param("nombre") String nombre);
 	
 	@Query("SELECT c FROM clientes c where c.estatusElim=1 and c.id=:id")
 	Optional<clientes> buscarPorId(@Param ("id") int id);

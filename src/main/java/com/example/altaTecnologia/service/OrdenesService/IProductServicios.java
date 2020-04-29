@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import com.example.altaTecnologia.models.ordenesDeServicio.serviceprod;
 
 public interface IProductServicios {
+	List<serviceprod> buscarPorNombre(String nombre);
 
 	List<serviceprod> buscarTodas();
 
@@ -20,9 +21,9 @@ public interface IProductServicios {
 
 	void guardar(serviceprod serviceprod);
 
-	Page<serviceprod> buscarTodosPoriD(Pageable page,int id);
+	Page<serviceprod> buscarTodosPoriD(Pageable page, int id);
 
 	Page<serviceprod> buscarPorNombre(Pageable page, String nombre);
 
-	Page<serviceprod> buscarPorDescripcion(Pageable page,String desc);
+	Page<serviceprod> buscarPorDescripcion(Pageable page, String desc);
 }

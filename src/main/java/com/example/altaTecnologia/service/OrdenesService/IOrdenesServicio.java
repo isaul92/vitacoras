@@ -13,6 +13,8 @@ import com.example.altaTecnologia.models.ordenesDeServicio.ordenservicio;
 public interface IOrdenesServicio {
 	void guardar(ordenservicio ordenservicio);
 
+	List<ordenservicio> buscarPorVigencia();
+
 	List<ordenservicio> buscarTodas();
 
 	List<ordenservicio> buscarPorCliente(clientes cliente);

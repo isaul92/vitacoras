@@ -18,13 +18,13 @@ public class clientes {
 	private int id;
 	private String nombre;
 	private String apellidos;
-	@OneToMany()
-	@JoinColumn(name="idCliente")
-	private List<datosfiscales> idDatosFiscales;
+
 	private String telefono;
 	private String correo;
 	private int estatusElim;
-	
+	@OneToMany()
+	@JoinColumn(name = "idCliente")
+	private List<datosfiscales> idDatosFiscales;
 
 	public List<datosfiscales> getIdDatosFiscales() {
 		return idDatosFiscales;

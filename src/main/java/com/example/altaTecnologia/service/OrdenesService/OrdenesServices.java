@@ -27,7 +27,7 @@ public class OrdenesServices implements IOrdenesServicio {
 	@Override
 	public List<ordenservicio> buscarTodas() {
 		// TODO Auto-generated method stub
-		return null;
+		return repoOrdenes.findAll();
 	}
 
 	@Override
@@ -88,6 +88,12 @@ public class OrdenesServices implements IOrdenesServicio {
 	public Page<ordenservicio> indexPaginate(Pageable page, Date vigencia) {
 		// TODO Auto-generated method stub
 		return repoOrdenes.buscarPorFecha(page, vigencia);
+	}
+
+	@Override
+	public List<ordenservicio> buscarPorVigencia() {
+		// TODO Auto-generated method stub
+		return repoOrdenes.buscarPorVigencia();
 	}
 
 }

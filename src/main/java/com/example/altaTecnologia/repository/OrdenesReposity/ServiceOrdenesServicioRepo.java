@@ -17,10 +17,13 @@ public interface ServiceOrdenesServicioRepo extends JpaRepository<ordenservicio,
 	@Query("SELECT o,c FROM  ordenservicio o INNER JOIN  clientes c on c.id=o.clienteId WHERE o.clienteId=:id")
 	List<ordenservicio> buscarPorCliente(@Param("id") clientes id);
 
+	@Query("SELECT o FROM  ordenservicio o  WHERE o.estatus ='COMPLETADA C/VIGENCIA'")
+	List<ordenservicio> buscarPorVigencia();
+
 	@Query("SELECT o FROM  ordenservicio o  WHERE o.clienteId.nombre LIKE %:nombre%")
 	Page<ordenservicio> buscarPorNombre(Pageable page, @Param("nombre") String nombre);
 
-	@Query("SELECT o FROM  ordenservicio o  WHERE o.vigencia=:vigencia")
+	@Query("SELECT o FROM  ordenservicio o  WHERE o.fecha=:vigencia")
 	Page<ordenservicio> buscarPorFecha(Pageable page, @Param("vigencia") Date vigencia);
 
 	@Query("SELECT o FROM  ordenservicio o WHERE o.id=:id")

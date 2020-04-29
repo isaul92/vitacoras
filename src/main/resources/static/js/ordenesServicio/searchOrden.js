@@ -1,5 +1,40 @@
 window.onload = function() {
 
+	
+	
+	$(function() {
+
+		$("#buscadorOrdenes")
+				.autocomplete(
+						{
+							minLength : 0,
+							source : "/clientesApi/buscador",
+							focus : function(event, ui) {
+
+								return false;
+							},
+							select : function(event, ui) {
+								$("#buscadorOrdenes").val(
+										ui.item.nombre + " " + ui.item.apellidos);
+							
+								window.location.href = "/ordenes/indexPaginate/0/nombre/"
+									+ ui.item.id;
+							
+								return false;
+							}
+						}).autocomplete("instance")._renderItem = function(ul, item) {
+
+			return $("<li>").append(
+					"<div>" + item.nombre + " " + item.apellidos + "</div>")
+					.appendTo(ul);
+		};
+	});
+	
+	
+	
+
+
+
 	$("#buscar")
 			.click(
 					function() {
@@ -34,13 +69,10 @@ window.onload = function() {
 
 						} else if (accion == "nombreBuscarProducto") {
 
-							if ($("#inputBuscarProductoId").val().trim() == "") {
+							if ($("#buscadorOrdenes").val().trim() == "") {
 
 								alert("Ingrese Nombre a Buscar")
-							} else {
-								window.location.href = "/ordenes/indexPaginate/0/nombre/"
-										+ $("#inputBuscarProductoId").val();
-							}
+							} else {}
 						} else {
 
 							if ($("#fechaBuscar").val().trim() == "") {

@@ -28,14 +28,28 @@ public class ordenservicio {
 	private String estatus;
 	private double total;
 	private Date vigencia;
-	private int estatusFactura;
+	private String estatusFactura;
 	private String observaciones;
 	private int diasVigencia;
 	private String tipoOrden;
+	private String garantia;
 	
 	
+	
+	public String getGarantia() {
+		return garantia;
+	}
+
+	public void setGarantia(String garantia) {
+		this.garantia = garantia;
+	}
+
 	public String getTipoOrden() {
 		return tipoOrden;
+	}
+
+	public void setEstatusFactura(String estatusFactura) {
+		this.estatusFactura = estatusFactura;
 	}
 
 	public void setTipoOrden(String tipoOrden) {
@@ -117,6 +131,10 @@ public class ordenservicio {
 		return fecha;
 	}
 
+	public String getEstatusFactura() {
+		return estatusFactura;
+	}
+
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
@@ -129,14 +147,7 @@ public class ordenservicio {
 		this.vigencia = vigencia;
 	}
 
-	public int getEstatusFactura() {
-		return estatusFactura;
-	}
-
-	public void setEstatusFactura(int estatusFactura) {
-		this.estatusFactura = estatusFactura;
-	}
-
+	
 	public String getObservaciones() {
 		return observaciones;
 	}

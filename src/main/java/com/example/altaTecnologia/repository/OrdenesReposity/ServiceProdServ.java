@@ -31,4 +31,7 @@ public interface ServiceProdServ extends JpaRepository<serviceprod, Integer> {
 	@Query("SELECT s FROM serviceprod s where s.estatusEliminada=1 and s.descr LIKE %:descr%")
 	Page<serviceprod> indexPaginateDescrip(Pageable page, @Param("descr") String descr);
 
+	@Query("SELECT s FROM serviceprod s where s.estatusEliminada=1 and s.nombre LIKE %:nombre%")
+	List<serviceprod> buscarNombre(@Param("nombre") String nombre);
+
 }

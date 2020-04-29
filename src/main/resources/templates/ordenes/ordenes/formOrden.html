@@ -1,10 +1,369 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<head th:insert="/fragments/sistemaFragments/headSistema::menuSistema">
+
 </head>
 <body>
 
+
+	<aside id="left-panel" class="left-panel"
+		th:insert="/fragments/sistemaFragments/asideSistema::asideSistema">
+	</aside>
+	<div id="right-panel" class="right-panel">
+		<header id="header" class="header"
+			th:insert="/fragments/sistemaFragments/headerSistema::headerSistema">
+		</header>
+
+
+		<div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>CREAR ORDEN SERVICIO</h1>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="animated fadeIn">
+
+
+					<div class="row">
+						<div class="col">
+							<div class="card">
+								<h1 class="badge badge-danger p-1" th:text="${msgc}"></h1>
+								<div class="card-header">
+									<strong>Crear Orden</strong><small> </small>
+								</div>
+								<div class="card-body card-block">
+
+									<form th:action="@{/ordenes/save}" th:object="${ordenservicio}"
+										method="post">
+										<div class="d-flex flex-wrap">
+											<input th:if="${ordenservicio.estatus==null}" type="hidden"
+												class="form-control" id="estatus" th:value="${'SIN VALOR'}">
+
+
+											<input th:if="${ordenservicio.estatus!=null}" type="hidden"
+												class="form-control" id="estatus"
+												th:value="${ordenservicio.estatus}"> <input
+												type="hidden" class="form-control" th:field="*{partidas}">
+											<input type="hidden" class="form-control" id="clienteId"
+												name="clienteId" th:field="*{clienteId}"> <input
+												type="hidden" class="form-control" id="id" name="id"
+												th:field="*{id}"> <input type="hidden"
+												class="form-control" id="total" name="total"
+												th:field="*{total}"> <input type="hidden"
+												class="form-control" id="diasVigencia" name="diasVigencia"
+												th:field="*{diasVigencia}">
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="fecha">Fecha</label> <input type="text"
+														class="form-control" name="fecha" id="fecha"
+														th:field="*{fecha}" placeholder="Fecha de publicacion"
+														required="required">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="vigencia">Vigencia</label> <input type="text"
+														class="form-control" name="vigencia" id="vigencia"
+														title="Si no tiene vigencia, colocar fecha actual"
+														th:field="*{vigencia}" placeholder="Fecha de vigencia"
+														required>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="estatus">Requiere Factura</label> <select
+														th:field="*{estatusFactura}" class="form-control"
+														name="estatus" id="estatusFactura">
+														<option value="SI">SI</option>
+														<option value="NO">NO</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="estatus">Tipo de Orden</label> <select
+														th:field="*{tipoOrden}" class="form-control"
+														name="tipoOrden" id="tipoOrden">
+														<option value="VENTA">VENTA</option>
+														<option value="SERVICIO">SERVICIO</option>
+														<option value="VENTA/SERVICIO">VENTA/SERVICIO</option>
+													</select>
+												</div>
+											</div>
+
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="estatus">Garantia</label> <select
+														th:field="*{garantia}" class="form-control"
+														name="garantia" id="garantia">
+														<option value="SI">SI</option>
+														<option value="NO">NO</option>
+
+													</select>
+												</div>
+											</div>
+
+
+											<div th:if="${ordenservicio.estatus==null}" class="col-md-3">
+												<div class="form-group">
+													<label for="estatus">Estatus de Orden</label> <select
+														th:field="*{estatus}" class="form-control" name="estatus"
+														id="estatus">
+														<option value="PROCESO">PROCESO</option>
+														<option value="COMPLETADA">COMPLETADA</option>
+														<option value="COMPLETADA C/VIGENCIA">COMPLETADA
+															C/VIGENCIA</option>
+														<option value="CANCELADA">CANCELADA</option>
+													</select>
+												</div>
+											</div>
+
+											<div th:if="${ordenservicio.estatus=='CANCELADA'}"
+												class="col-md-3">
+												<div class="form-group">
+													<label for="estatus">Estatus de Orden</label> <select
+														th:field="*{estatus}" class="form-control" name="estatus"
+														id="estatus">
+														<option value="CANCELADA">CANCELADA</option>
+													</select>
+												</div>
+											</div>
+
+											<div
+												th:if="${ordenservicio.estatus=='COMPLETADA'  || ordenservicio.estatus=='COMPLETADA C/VIGENCIA' }"
+												class="col-md-3">
+												<div class="form-group">
+													<label for="estatus">Estatus de Orden</label> <select
+														th:field="*{estatus}" class="form-control" name="estatus"
+														id="estatus">
+														<option value="COMPLETADA">COMPLETADA</option>
+														<option value="CANCELADA">CANCELADA</option>
+													</select>
+												</div>
+											</div>
+
+
+
+											<div th:if="${ordenservicio.estatus=='PROCESO'}"
+												class="col-md-3">
+												<div class="form-group">
+													<label for="estatus">Estatus de Orden</label> <select
+														th:field="*{estatus}" class="form-control" name="estatus"
+														id="estatus">
+														<option value="COMPLETADA">PROCESO</option>
+														<option value="COMPLETADA">COMPLETADA</option>
+														<option value="COMPLETADA C/VIGENCIA">COMPLETADA
+															C/VIGENCIA</option>
+														<option value="CANCELADA">CANCELADA</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="observaciones">Observaciones</label>
+													<textarea th:field="*{observaciones}" class="form-control "
+														name="observaciones">
+														</textarea>
+												</div>
+											</div>
+
+											<div th:if="${editar==null}" class="col-md-6">
+												<div class="form-group">
+													<div class="ui-widget">
+														<label for="birds">Buscar Cliente: </label> <input
+															class="form-control" id="project"
+															placeholder="Buscar por nombre" required>
+													</div>
+												</div>
+											</div>
+
+											<div>
+												<h4>Datos del cliente</h4>
+												<div id="datosCliente" class="border m-4 p-4"
+													style="width: auto; height: auto;">
+
+													<div th:if="${editar!=null}">
+
+														<span
+															th:text="${partidas.clienteId.nombre +' '+partidas.clienteId.apellidos}"></span>
+														<br> <span
+															th:text="${'Correo: '+partidas.clienteId.correo}"></span><br>
+														<span class="mt-2"
+															th:text="${'Telefono: '+partidas.clienteId.telefono}"></span>
+													</div>
+												</div>
+											</div>
+
+
+
+										</div>
+
+
+
+
+
+
+
+
+
+										<div class="d-flex justify-content-around">
+											<input class="btn btn-success" type="submit" value="Guardar">
+										</div>
+									</form>
+
+
+									<div class="container-fluid mt-4 pt-4">
+										<form th:action="@{/agregar}">
+
+											<h1 class="badge badge-danger" th:text="${msg}"></h1>
+											<div class="col-md-6">
+												<div th:if="${editar==null}" class="form-group">
+
+													<div class="ui-widget">
+														<label for="producto">Buscar producto: </label> <input
+															class="form-control" id="producto"
+															placeholder="Buscar por nombre" required>
+													</div>
+
+
+
+												</div>
+											</div>
+
+
+										</form>
+
+
+										<div class="table-responsive">
+											<table class="table  table-hover ">
+												<thead class="thead-light">
+													<tr>
+														<th scope="col">Codigo de Barras</th>
+														<th scope="col">Descripcion del Producto</th>
+														<th scope="col">Precio venta</th>
+														<th scope="col">Cantidad</th>
+														<th scope="col">Importe</th>
+														<div th:if="${editar==null}">
+														<th scope="col">Acciones</th>
+														</div>
+
+													</tr>
+												</thead>
+												<div th:if="${editar==null}">
+												<tbody>
+
+
+													<tr th:each="partida:${partidas.partida}">
+														<td th:text="${partida.servProdId.nombre}"></td>
+														<td th:text="${partida.servProdId.descr}"></td>
+														<td th:text="${partida.servProdId.precio}"></td>
+														<td>
+															<div class="row d-md-flex  ">
+																<div class=" d-flex p-0 m-0">
+																	<div class="m-1">
+																		<span class="btn btn-warning"
+																			th:text="${partida.cantidad}"></span>
+																	</div>
+																	<div class="m-1 ">
+																		<input class="cantidad form-control agregar"
+																			type="number"
+																			th:id="${'cantidad'+partida.servProdId.id}"
+																			th:name="${partida.servProdId.id}" th:value="1">
+																	</div>
+																</div>
+																<div class=" p-0 m-0">
+																	<a class="m-1 btn btn-info"
+																		th:id="${'agregar'+partida.servProdId.id}"
+																		th:href="@{/ordenes/add/{id}/1 (id=${partida.servProdId.id}) }">Agregar</a>
+																</div>
+															</div>
+														</td>
+														<td th:text="${partida.importe}"></td>
+														<td class="d-flex justify-content-center"><a
+															th:href="@{/ordenes/eliminarProducto/{id} (id=${partida.servProdId.id} ) }"
+															onclick="return confirm('¿Estas seguro?')"
+															class="btn btn-success btn-sm" role="button"
+															title="Eliminar"><i class="fas fa-trash"
+																aria-hidden="true"></i></a></td>
+													</tr>
+												</tbody>
+												</div>
+
+												<div th:if="${editar!=null}">
+													<tbody>
+
+
+														<tr th:each="partida:${partidas.partidas}">
+															<td th:text="${partida.servProdId.nombre}"></td>
+															<td th:text="${partida.servProdId.descr}"></td>
+															<td th:text="${partida.servProdId.precio}"></td>
+															<td><span class="btn btn-warning"
+																th:text="${partida.cantidad}"></span></td>
+															<td
+																th:text="${partida.cantidad * partida.servProdId.precio}"></td>
+
+														</tr>
+													</tbody>
+												</div>
+											</table>
+
+										</div>
+
+
+
+
+									</div>
+
+
+
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+
+
+		<div class="clearfix"></div>
+
+		<footer
+			th:insert="/fragments/sistemaFragments/footerSistema::footerSistema">
+		</footer>
+	</div>
+	<!-- /#right-panel -->
+
+	<div
+		th:insert="/fragments/sistemaFragments/scriptsSistema::scriptsSistema">
+	</div>
+	<script th:src="@{/js/vitacoras/searchSub.js}"></script>
+	<script th:src="@{/js/ordenesServicio/searchClient.js}"></script>
+	<script th:src="@{/js/ordenesServicio/searchProduct.js}"></script>
+	<script th:src="@{/js/ordenesServicio/agregarCambio.js}"></script>
 </body>
 </html>

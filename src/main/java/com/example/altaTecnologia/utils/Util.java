@@ -5,13 +5,20 @@ import java.io.IOException;
 
 import java.util.Date;
 
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class Util {
 
-	public static int calcularFecha(Date fecha1, Date fecha2) {
+	public static int calcularFechaVigencia(Date fecha2) {
+		// fechaInicial //fechaFinal
+		Date fecha = new Date();
+		int dias = (int) ((fecha2.getTime() - fecha.getTime()) / 86400000);
 
+		return dias;
+	}
+
+	public static int calcularFecha(Date fecha1, Date fecha2) {
+		// fechaInicial //fechaFinal
 		int dias = (int) ((fecha2.getTime() - fecha1.getTime()) / 86400000);
 
 		return dias;

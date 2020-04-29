@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,7 +53,7 @@ public class ClientesController {
 			model.addAttribute("clientes", cliente.get());
 			clientes sc = cliente.get();
 			for (datosfiscales d : sc.getDatosfiscales()) {
-				System.out.println("assaas"+d.getCiudad());
+				System.out.println("assaas" + d.getCiudad());
 			}
 			return "clientes/formClientes";
 		} else {
